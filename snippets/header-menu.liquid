@@ -44,8 +44,12 @@
         {%- endif -%}
         ref="menuitem"
       >
-        <span class="menu-list__link-title">{{- link.title -}}</span>
+        <span class="menu-list__link-title first-title">{{ link.title }}</span>
+        <span class="menu-list__link-title second-title">{{ link.title }}</span>
       </a>
+
+
+      
       {%- if link.links != blank -%}
         <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
           <div
@@ -91,3 +95,52 @@
     {% render 'overflow-list', class: class, ref: 'overflowMenu', children: children, minimum-items: 2, defer: true %}
   </div>
 </nav>
+
+<style>
+  .menu-list__link {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+
+    
+  }
+  
+  .menu-list__link-title {
+    display: block;
+    transition: all 0.4s ease;
+  }
+  
+  /* Initially show only the first span */
+  .menu-list__link .first-title {
+    transform: translateY(0);
+    opacity: 1;
+    padding:5px 10px;
+  }
+  
+  /* Second title starts below */
+  .menu-list__link .second-title {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    opacity: 0;
+    transform: translateY(0);
+    background-color: black;
+    border-radius: 50px;
+    padding: 5px 10px;
+    color: white !important;
+  }
+  
+  /* Hover effect */
+  .menu-list__link:hover .first-title {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  
+  .menu-list__link:hover .second-title {
+    top: 50%;
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+
+  
+</style>
