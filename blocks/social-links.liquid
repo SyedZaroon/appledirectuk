@@ -1,4 +1,4 @@
-
+<script src="{{ 'icon-animation.js' | asset_url }}" defer></script>
 
 <div
   class="social-icons__wrapper footer-utilities__icons"
@@ -74,7 +74,7 @@
     {% if link_url != blank %}
       {% if request.design_mode or has_profile %}
         <div
-          class="social-icons__icon-wrapper{% unless has_profile %} social-icons__icon-wrapper--disabled{% endunless %}"
+          class="social-icons__icon-wrapper animate-icons{% unless has_profile %} social-icons__icon-wrapper--disabled{% endunless %}"
         >
           <a
             href="{{ link_url }}"
@@ -108,9 +108,10 @@
 </div>
 
 {% stylesheet %}
+
   .social-icons__wrapper {
     display: flex;
-    gap: var(--gap-sm);
+    gap: var(--gap-xl);
     flex-wrap: wrap;
     justify-content: center;
 
@@ -241,3 +242,4 @@
   ]
 }
 {% endschema %}
+

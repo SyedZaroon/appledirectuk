@@ -5,9 +5,11 @@
 
   @param {string} [settings.popover_color_scheme] - The color scheme for the popover panel.
 {%- enddoc -%}
+
+<script src="{{ 'icon-animation.js' | asset_url }}" defer></script>
 <anchored-popover-component
   data-close-on-resize="true"
-  class="account-popover mobile:hidden"
+  class="account-popover mobile:hidden animate-icons"
 >
   {% render 'account-button' with 'account-popover' as popover_id %}
   <div

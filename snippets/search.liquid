@@ -8,8 +8,10 @@
   {% render 'search', style: 'default', class: 'custom-class' %}
 {%- enddoc -%}
 
+<script src="{{ 'icon-animation.js' | asset_url }}" defer></script>
+
 {% unless style == 'none' %}
-  <search-button class="search-action{% if class != blank %} {{ class | strip }}{% endif %}">
+  <search-button class="search-action animate-icons{% if class != blank %} {{ class | strip }}{% endif %}">
     <button
       on:click="#search-modal/showDialog"
       class="button button-unstyled search-modal__button header-actions__action"

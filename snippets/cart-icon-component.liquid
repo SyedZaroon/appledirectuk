@@ -1,9 +1,12 @@
 {%- doc -%}
   Renders the cart icon, which displays the number of items in the cart via a bubble.
 {%- enddoc -%}
+
+<script src="{{ 'icon-animation.js' | asset_url }}" defer></script>
+
 <cart-icon
   class="
-    header-actions__cart-icon
+    header-actions__cart-icon animate-icons
     {% unless cart == empty %} header-actions__cart-icon--has-cart{% endunless %}
   "
   data-testid="cart-icon"

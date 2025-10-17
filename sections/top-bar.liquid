@@ -1,0 +1,67 @@
+{% stylesheet %}
+   .top-bar {
+  background-color: var(--color-background);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  padding: 20px 0;
+   }
+
+   @media screen and (max-width:790px){
+    .top-bar {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .social-icons__wrapper{
+        display: none !important;
+    }
+   }
+{% endstylesheet %}
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}">
+  <div class="top-bar">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Top Bar",
+        "settings": [
+            {
+                "type": "color_scheme",
+                "id": "color_scheme",
+                "label": "t:settings.color_scheme",
+                "default": "scheme-1"
+            },
+            {
+                "type": "select",
+                "id": "section_width",
+                "label": "t:settings.width",
+                "options": [
+                  {
+                    "value": "page-width",
+                    "label": "t:options.page"
+                  },
+                  {
+                    "value": "full-width",
+                    "label": "t:options.full"
+                  }
+                ],
+                "default": "page-width"
+              },
+        ],
+        "blocks": [
+            {
+                "type": "social-links",
+            },
+            {
+                "type": "annoucement",
+            }
+        ],
+        "presets": [
+            {
+                "name": "Top Bar",
+            }
+        ]
+    }
+{% endschema %}

@@ -4283,3 +4283,23 @@ text-component {
     font-size: max(1rem, 100%);
   }
 }
+
+
+/*Custom Css For header*/
+.header__row.header__row--top{
+  height: 112px;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+}
+
+/*Custom Css For animation of icons on hover using js*/
+
+.animate-icons{
+  transition: transform 0.3s ease-in-out;
+}
+
+/*Custom Css For top header Icon*/
+
+.header__column--right svg {
+  color:black !important;
+}
