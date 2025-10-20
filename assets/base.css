@@ -3402,6 +3402,7 @@ slideshow-component:has(slideshow-controls[thumbnails]) {
       'container controls' auto
       'arrows controls' min-content
       / 1fr auto;
+      grid-template-columns: 2fr 1fr;
   }
 
   &:has(slideshow-controls[pagination-position='left']) {
@@ -3669,7 +3670,7 @@ slideshow-component[autoplay] slideshow-controls {
 
   .slideshow-control {
     border-radius: var(--media-radius);
-    width: clamp(44px, 7vw, var(--thumbnail-width));
+    /* width: clamp(44px, 7vw, var(--thumbnail-width)); custom css */
     height: auto;
     aspect-ratio: var(--aspect-ratio);
 
@@ -4284,6 +4285,18 @@ text-component {
   }
 }
 
+@media screen and (max-width: 749px) {
+slideshow-component:has(slideshow-controls[thumbnails]) {
+    &:has(slideshow-controls[pagination-position='right']) {
+      display: grid;
+      grid-template:
+        'container controls' auto
+        'arrows controls' min-content / 1fr auto;
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
 
 /*Custom Css For header*/
 .header__row.header__row--top{
@@ -4302,4 +4315,11 @@ text-component {
 
 .header__column--right svg {
   color:black !important;
+}
+
+/* Custom css for product image zoom */
+drag-zoom-wrapper.product-media__drag-zoom-wrapper {
+  width: 50%;
+  padding: 20px;
+  margin: auto;
 }
