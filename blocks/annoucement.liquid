@@ -2,7 +2,7 @@
 <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
 
 <div class="announcement-swiper">
-    <svg class="icon icon-arrow-left icon-xs transform swiper-button-prev custom-prev" aria-label="Previous" viewBox="0 0 15 14" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <svg class="icon icon-arrow-left icon-xs transform swiper-button-prev custom-prev" aria-label="Previous" viewBox="0 0 15 14" fill="none" stroke="#fff" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6.33333 2.91675L2.25 7.00004M2.25 7.00004L6.33333 11.0834M2.25 7.00004H12.75"></path>
       </svg>
 
@@ -14,7 +14,7 @@
     </div>
   </div>
 
-    <svg class="icon icon-arrow-right icon-xs transform swiper-button-next custom-next" aria-label="Next" viewBox="0 0 15 14" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <svg class="icon icon-arrow-right icon-xs transform swiper-button-next custom-next" aria-label="Next" viewBox="0 0 15 14" fill="none" stroke="#fff" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.00004H12.75M12.75 7.00004L8.66667 2.91675M12.75 7.00004L8.66667 11.0834"></path>
       </svg>
 </div>
@@ -74,12 +74,12 @@ document.addEventListener("DOMContentLoaded", function() {
   position: relative !important;
 }
 
-.swiper {
+.announcement-swiper .swiper {
   flex: 1;
   height: 20px;
 }
 
-.swiper-slide {
+.announcement-swiper .swiper-slide {
   white-space: nowrap;
   display: flex;
   align-items: center;
