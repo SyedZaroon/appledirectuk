@@ -4323,3 +4323,79 @@ drag-zoom-wrapper.product-media__drag-zoom-wrapper {
   padding: 20px;
   margin: auto;
 }
+/*Custom Css For variant option button*/
+label.variant-option__button-label,
+.product-details .quantity-selector,
+.button {
+  border-radius: 100px;
+}
+
+/*Custom Css For shopify payment button*/
+button.shopify-payment-button__button--unbranded {
+  position: relative;
+  border-radius: 100px !important;
+  background-color: transparent;
+  color: black;
+  border: 1px solid black;
+}
+
+button.shopify-payment-button__button--unbranded:hover {
+  color: white;
+  background-color: black !important;
+}
+
+/*Custom Css For add to cart button*/
+
+.add-to-cart-button .add-to-cart-text {
+  position: relative;
+  z-index: 9;
+  color: #fff !important;
+  transition: color 0.5s ease-in-out;
+}
+
+.add-to-cart-button:hover .add-to-cart-text {
+  color: #000 !important;
+}
+
+.add-to-cart-button::before {
+  content: "";
+  border-radius: 50%;
+  width: 150%;
+  height: 200%;
+  inset-block-start: -50%;
+  inset-inline-start: -25%;
+  background-color: #000;
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+  z-index: 0;
+  transform: translateY(0);
+}
+
+/* Animation keyframes: always bottom -> top */
+@keyframes curtainUp {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-76%);
+  }
+}
+
+@keyframes curtainUpReverse {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.add-to-cart-button.hovering::before {
+  animation: curtainUp 0.5s forwards ease-in-out;
+}
+
+.add-to-cart-button.releasing::before {
+  animation: curtainUpReverse 0.5s forwards ease-in-out;
+}

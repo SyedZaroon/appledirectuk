@@ -1,0 +1,207 @@
+{% assign product_highlights = product.metafields.custom.product_highlight.value %}
+{% assign info = product.metafields.custom.shipping_information.value %}
+
+<style>
+    .product-highlights__container {
+        padding-block: {{ section.settings.padding-block-start }}px {{ section.settings.padding-block-end }}px;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        align-items: center;
+    }
+    .highlight-container{
+        border: 1px solid #FAFAFA;
+        border-radius: clamp(0.6rem, 1.05vw, 125rem);
+        padding: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        height: fit-content;
+
+        margin-right: calc(48px / 2);
+    }
+    .highlight-item{
+        background-color: #FAFAFA;
+        border-radius: 0.6rem;
+        padding: 1rem 1.5rem;
+        height: fit-content;
+
+        display:flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .highlight-icon {
+        width: 32px;
+        height: 32px;
+    }      
+
+    .highlight-title{
+        font-size: 1rem;
+        font-weight: 600;
+        margin:0;
+    }
+    .highlight-description{
+        font-size: 0.875rem;
+        font-weight: 400;
+        margin:0;
+    }
+    .info-container{
+        margin-left: calc(48px / 2);
+        padding: 1rem;
+        border-radius: clamp(0.6rem, 1.05vw, 125rem);
+        background-color: #FAFAFA;
+    }
+    .info-icon{
+        width: 20px;
+        height: 20px;
+    }
+    .info-item{
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 1rem;
+    }
+    .info-description{
+        font-size: 0.875rem;
+        font-weight: 400;
+        margin:0;
+    }
+    .info-item:nth-child(odd){
+        background-color: white;
+        border-radius: 0.6rem;
+    }
+    @media screen and (max-width:815px){
+        .product-highlights__container {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        .highlight-container,.info-container{
+            margin: 0 auto;
+            width:100%;
+        }
+
+    }
+</style>
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div class="  section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}">
+
+    <div class="product-highlights__container">
+        {% for block in section.blocks %}
+
+          {% if block.type == 'feature' %}
+            <div class="highlight-container">
+            {% for highlight in product_highlights %}
+                <div class="highlight-item"> 
+                    
+                        {% if highlight.icon != blank %}
+                            <div class="highlight-icon">
+                                <img src="{{ highlight.icon | img_url: '100x' }}" alt="{{ highlight.title }}-img" width="32px" height="32px">
+                            </div>
+                        {% endif %}
+                        <div class="highlight-text">
+                        <h4 class="highlight-title">{{ highlight.title }}</h4>
+                        <p class="highlight-description">{{ highlight.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if block.type == 'info' %}
+          <div class="info-container">
+            {% for info in info %}
+                <div class="info-item">
+                    <div class="info-icon">
+                        <img src="{{ info.icon | img_url: '100x' }}" alt="{{ info.title }}-img" width="32px" height="32px">
+                    </div>
+                        <p class="info-description">{{ info.description }}</p>
+
+                </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+        {% endfor %}
+    </div>
+</div>
+
+
+{% schema %}
+    {
+        "name": "Product Highlights",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "color_scheme",
+                "id": "color_scheme",
+                "label": "t:settings.color_scheme",
+                "default": "scheme-1"
+            },
+            {
+                "type": "select",
+                "id": "section_width",
+                "label": "t:settings.width",
+                "options": [
+                  {
+                    "value": "page-width",
+                    "label": "t:options.page"
+                  },
+                  {
+                    "value": "full-width",
+                    "label": "t:options.full"
+                  }
+                ],
+                "default": "page-width"
+              },
+              {
+                "type": "header",
+                "content": "t:content.padding"
+              },
+              {
+                "type": "range",
+                "id": "padding-block-start",
+                "label": "t:settings.top",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+              },
+              {
+                "type": "range",
+                "id": "padding-block-end",
+                "label": "t:settings.bottom",
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0
+              }
+        ],
+        "blocks": [
+      {
+        "type": "feature",
+        "name": "Highlight Feature",
+        "limit": 1,
+        "settings": [
+
+        ] 
+
+      },
+      {
+        "type": "info",
+        "name": "Info Item",
+        "limit": 1
+      }
+    ],
+        "presets": [
+            {
+                "name": "Product Highlights"
+            }
+        ]
+    }
+{% endschema %}

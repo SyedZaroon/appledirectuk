@@ -120,9 +120,9 @@
       "scheme-2": {
         "settings": {
           "background": "#ffffff",
-          "foreground_heading": "#000000",
-          "foreground": "#000000cf",
-          "primary": "#000000cf",
+          "foreground_heading": "#171717",
+          "foreground": "#000000",
+          "primary": "#000000",
           "primary_hover": "#ffffff",
           "border": "#dfdfdf",
           "shadow": "#000000",
