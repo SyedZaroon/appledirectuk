@@ -1,191 +1,139 @@
 <style>
   .video-banner-wrapper {
     position: relative;
+    width: 100%;
+    height: calc(var(--scroll-blocks, 5) * 100vh); /* dynamically adjust height */
+    overflow: hidden;
   }
 
   .video-banner {
     position: sticky;
     top: 0;
-    width: 100%;
     height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-  }
-
-  .video-banner video,
-  .video-banner iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     z-index: 1;
+    width: 100%;
   }
 
-  .video-banner img.preview-image {
+  .video-banner iframe,
+  .video-banner video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;
+    border: 0;
   }
 
   .scrolling-text-container {
+    z-index: 2;
     position: relative;
-    z-index: 10;
+    margin-top: -130vh;
+    padding-top: 100vh;
   }
 
   .text-scroll-item {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-  }
-
-  .text-content {
-    position: relative;
-    z-index: 2;
+    color: #fff;
     text-align: center;
-    padding: 40px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
+    font-size: 24px;
+    animation: fadeText 1.5s ease-in-out;
+    padding: 0 20px;
+  }
+
+  .text-scroll-item h2 {
+    font-size: 2.25rem;
+    margin-bottom: 10px;
     max-width: 800px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
-  .text-scroll-item.active .text-content {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .text-content h2 {
-    font-size: 48px;
-    margin-bottom: 15px;
-    color: #fff;
-  }
-
-  .text-content p {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: #fff;
-  }
-
-  /* Mobile adjustments */
-  @media (max-width: 768px) {
-    .video-banner {
-      height: 70vh;
-    }
-
-    .text-scroll-item {
-      height: 70vh;
-    }
-
-    .text-content h2 {
-      font-size: 28px;
-    }
-
-    .text-content p {
-      font-size: 16px;
-    }
-
-    .text-content {
-      padding: 30px 20px;
-    }
+  @keyframes fadeText {
+    0% { opacity: 0; transform: translateY(20px); }
+    50% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
   }
 </style>
 
+{% liquid
+  assign autoplay = section.settings.video_autoplay
+  assign loop = section.settings.video_loop
+  assign video_url = ''
+
+  if section.settings.video_url contains 'youtube.com' or section.settings.video_url contains 'youtu.be'
+    assign youtube_id = section.settings.video_url | split: 'v=' | last | split: '&' | first
+    assign video_url = 'https://www.youtube.com/embed/' | append: youtube_id
+    if autoplay
+      assign video_url = video_url | append: '?autoplay=1&mute=1'
+      if loop
+        assign video_url = video_url | append: '&loop=1&playlist=' | append: youtube_id
+      endif
+    endif
+  elsif section.settings.video_url contains 'vimeo.com'
+    assign vimeo_id = section.settings.video_url | split: '/' | last
+    assign video_url = 'https://player.vimeo.com/video/' | append: vimeo_id
+    if autoplay
+      assign video_url = video_url | append: '?autoplay=1&muted=1'
+      if loop
+        assign video_url = video_url | append: '&loop=1'
+      endif
+    endif
+  endif
+%}
+
 <div class="video-banner-wrapper">
-  <section class="video-banner">
-    {% if section.settings.source == 'uploaded' %}
-      {% if section.settings.video != blank %}
-        {% assign video_url = section.settings.video | file_url %}
-        <video
-          {% if section.settings.video_autoplay %}autoplay{% endif %}
-          {% if section.settings.video_loop %}loop{% endif %}
-          muted
-          playsinline
-        >
-          <source src="{{ video_url }}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      {% endif %}
-    {% elsif section.settings.source == 'url' %}
-      {% if section.settings.video_url != blank %}
-        {% if section.settings.video_url.type == 'youtube' %}
-          <iframe
-            src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay={% if section.settings.video_autoplay %}1{% else %}0{% endif %}&loop={% if section.settings.video_loop %}1{% else %}0{% endif %}&mute=1&controls=0&playlist={{ section.settings.video_url.id }}"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen
-          ></iframe>
-        {% elsif section.settings.video_url.type == 'vimeo' %}
-          <iframe
-            src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay={% if section.settings.video_autoplay %}1{% else %}0{% endif %}&loop={% if section.settings.video_loop %}1{% else %}0{% endif %}&muted=1&controls=0"
-            frameborder="0"
-            allow="autoplay; fullscreen"
-            allowfullscreen
-          ></iframe>
+
+  <div class="video-banner">
+    {% if video_url != blank %}
+      <!-- YouTube or Vimeo Video -->
+      <iframe
+        src="{{ video_url }}"
+        title="Video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+
+    {% elsif section.settings.video != blank %}
+      <!-- Uploaded Video -->
+      <video
+        {% if autoplay %}
+          autoplay
         {% endif %}
-      {% endif %}
+        muted
+        {% if loop %}
+          loop
+        {% endif %}
+        playsinline
+      >
+        {% for source in section.settings.video.sources %}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+        Your browser does not support the video tag.
+      </video>
+
+    {% else %}
+      <p>No video provided yet.</p>
     {% endif %}
-  </section>
+  </div>
 
   <div class="scrolling-text-container">
-    {% for block in section.blocks %}
-      {% if block.type == 'scrolling_text' %}
-        <div class="text-scroll-item" data-block-id="{{ block.id }}">
-          <div class="text-content">
-            {% if block.settings.text != blank %}
-              {{ block.settings.text }}
-            {% endif %}
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
+    {%- for block in section.blocks -%}
+    <div class="text-scroll-item">
+        <h2>{{ block.settings.text }}</h2>
+    </div>
+    {%- endfor -%}
   </div>
+
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const textItems = document.querySelectorAll('.text-scroll-item');
-    
-    if (textItems.length === 0) return;
-
-    const observerOptions = {
-      threshold: 0.5,
-      rootMargin: '0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        } else {
-          entry.target.classList.remove('active');
-        }
-      });
-    }, observerOptions);
-
-    textItems.forEach(item => {
-      observer.observe(item);
-    });
-  });
-</script>
 
 {% schema %}
 {
   "name": "Video Background Banner",
   "settings": [
-        {
+    {
       "type": "select",
       "id": "source",
       "label": "t:settings.video_source",
@@ -519,13 +467,13 @@
       "max": 50,
       "step": 1,
       "visible_if": "{{ section.settings.background }}"
-    },
+    }
   ],
   "blocks": [
     {
       "type": "scrolling_text",
       "name": "Scrolling Text",
-      "limit": 5,
+      "limit": 4,
       "settings": [
         {
           "type": "richtext",
@@ -541,6 +489,12 @@
       "name": "Video Background Banner",
       "category": "Media",
       "blocks": [
+        {
+          "type": "scrolling_text"
+        },
+        {
+          "type": "scrolling_text"
+        },
         {
           "type": "scrolling_text"
         },

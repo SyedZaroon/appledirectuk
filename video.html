@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sticky Image Scroll Text Fixed</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #fafafa;
+        }
+
+        /* Top content */
+        .content-top {
+            padding: 100px 20px;
+            background: #e2e2e2;
+        }
+
+        .content-top p {
+            margin-bottom: 40px;
+            font-size: 20px;
+        }
+
+        /* Sticky section */
+        .sticky-section {
+            position: relative;
+            height: 500vh;
+            /* (4 text blocks + 1) * 100vh = 500vh */
+        }
+
+        .sticky-bg {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .sticky-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .overlay-text-box {
+            position: relative;
+            z-index: 2;
+            margin-top: -130vh;
+            /* text starts where image starts */
+            padding-top: 100vh;
+            /* spacing before first text appears */
+        }
+
+        .overlay-text {
+            height: 100vh;
+            /* each text takes 1 full viewport */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            font-size: 24px;
+            animation: fadeText 1s ease;
+        }
+
+        @keyframes fadeText {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .overlay-text h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        /* Bottom content */
+        .content-bottom {
+            padding: 100px 20px;
+            background: #dcdcdc;
+        }
+
+        .content-bottom p {
+            margin-bottom: 40px;
+            font-size: 20px;
+        }
+
+        animation text 0: {
+            opacity: 0'} 50:{ opacity:1} 100:{ opacity:0;} 
+    </style>
+</head>
+
+<body> <!-- Top Content -->
+    <section class="content-top">
+        <h2>Top Content Section</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Vivamus lacinia odio vitae vestibulum vestibulum.</p>
+        <p>Cras venenatis euismod malesuada.</p>
+        <p>Scroll down to see text scroll over image!</p>
+    </section> <!-- Sticky Image with Scrolling Text -->
+    <section class="sticky-section">
+        <div class="sticky-bg"> <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1600"
+                alt="Sticky Background" /> </div>
+        <div class="overlay-text-box">
+            <div class="overlay-text">
+                <h2>Heading 1</h2>
+                <p>First text scrolling over image.</p>
+            </div>
+            <div class="overlay-text">
+                <h2>Heading 2</h2>
+                <p>Second text scrolling over image.</p>
+            </div>
+            <div class="overlay-text">
+                <h2>Heading 3</h2>
+                <p>Third text scrolling over image.</p>
+            </div>
+            <div class="overlay-text">
+                <h2>Heading 4</h2>
+                <p>Fourth text scrolling over image.</p>
+            </div>
+        </div>
+    </section> <!-- Bottom Content -->
+    <section class="content-bottom">
+        <h2>Bottom Content Section</h2>
+        <p>Now the image has scrolled away. Here’s the next content section.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec.</p>
+        <p>Praesent non commodo tortor. Integer vel augue nec justo volutpat tempor.</p>
+    </section>
+</body>
+
+</html>

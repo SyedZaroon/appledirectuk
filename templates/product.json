@@ -371,14 +371,42 @@
     },
     "video_banner_J3VfqL": {
       "type": "video-banner",
+      "blocks": {
+        "scrolling_text_Nk9phr": {
+          "type": "scrolling_text",
+          "settings": {
+            "text": "<p><strong>Scrolling Text</strong></p>"
+          }
+        },
+        "scrolling_text_6zwwFA": {
+          "type": "scrolling_text",
+          "settings": {
+            "text": "<p><strong>Scrolling Text</strong></p>"
+          }
+        }
+      },
+      "block_order": [
+        "scrolling_text_Nk9phr",
+        "scrolling_text_6zwwFA"
+      ],
       "name": "Video Banner",
       "settings": {
-        "video_url": "shopify://files/videos/18d6c08748594856ad043139a3d3bfa1.HD-1080p-4.8Mbps-24798151.mp4",
-        "preview_image": "shopify://shop_images/product-video-preview.webp",
-        "heading": "Experience the Future",
-        "subheading": "A powerful background video to showcase your brand.",
-        "button_label": "Shop Now",
-        "button_link": ""
+        "source": "uploaded",
+        "video_url": "",
+        "video_autoplay": false,
+        "video_loop": false,
+        "alt": "",
+        "type_preset": "rte",
+        "font": "var(--font-body--family)",
+        "font_size": "1rem",
+        "line_height": "normal",
+        "letter_spacing": "normal",
+        "case": "none",
+        "wrap": "pretty",
+        "color": "var(--color-foreground)",
+        "background": false,
+        "background_color": "#00000026",
+        "corner_radius": 0
       }
     }
   },
