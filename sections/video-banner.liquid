@@ -1,9 +1,9 @@
+{% assign block_count = section.blocks.size %}
+
 <style>
   .video-banner-wrapper {
     position: relative;
-    width: 100%;
-    height: calc(var(--scroll-blocks, 5) * 100vh); /* dynamically adjust height */
-    overflow: hidden;
+    height: ({{ block_count }} * 100vh) + 100vh;
   }
 
   .video-banner {
@@ -12,6 +12,7 @@
     height: 100vh;
     z-index: 1;
     width: 100%;
+    overflow: hidden;
   }
 
   .video-banner iframe,
@@ -42,7 +43,6 @@
     text-align: center;
     font-size: 24px;
     animation: fadeText 1.5s ease-in-out;
-    padding: 0 20px;
   }
 
   .text-scroll-item h2 {
@@ -56,6 +56,13 @@
     50% { opacity: 1; transform: translateY(0); }
     100% { opacity: 0; transform: translateY(-20px); }
   }
+{%- if section.settings.background -%}
+  .text-scroll-heading{
+    background-color: {{ section.settings.background_color }};
+    border-radius: {{ section.settings.corner_radius }}px;
+    padding: 5px;
+  }
+{%- endif -%}
 </style>
 
 {% liquid
@@ -122,7 +129,7 @@
   <div class="scrolling-text-container">
     {%- for block in section.blocks -%}
     <div class="text-scroll-item">
-        <h2>{{ block.settings.text }}</h2>
+        <h2 class="text-scroll-heading">{{ block.settings.text }}</h2>
     </div>
     {%- endfor -%}
   </div>
