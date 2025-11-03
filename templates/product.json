@@ -361,6 +361,7 @@
         "feature_MMbcVa",
         "info_9LUkHz"
       ],
+      "disabled": true,
       "name": "Product Highlights",
       "settings": {
         "color_scheme": "scheme-2",
@@ -483,6 +484,7 @@
         "text_7Yec6y",
         "text_MYeJqc"
       ],
+      "disabled": true,
       "name": "Video Banner",
       "settings": {
         "source": "uploaded",
@@ -492,11 +494,60 @@
         "video_loop": true,
         "alt": ""
       }
+    },
+    "tech_specs_9YyemT": {
+      "type": "tech-specs",
+      "blocks": {
+        "text_VnrXcq": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h2>Tech Specs</h2>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "include_in_the_box_cqTH3J": {
+          "type": "include-in-the-box",
+          "name": "Include in the box",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_VnrXcq",
+        "include_in_the_box_cqTH3J"
+      ],
+      "name": "Tech Specs",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "section_width": "page-width",
+        "padding-block-start": 50,
+        "padding-block-end": 50
+      }
     }
   },
   "order": [
     "main",
     "product_highlights_H6H6Py",
-    "video_banner_J3VfqL"
+    "video_banner_J3VfqL",
+    "tech_specs_9YyemT"
   ]
 }
