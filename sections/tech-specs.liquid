@@ -1,6 +1,6 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div class="  section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}" style="padding-block-start: {{ section.settings.padding-block-start }}px; padding-block-end: {{ section.settings.padding-block-end }}px;">
-    <div> {% content_for 'blocks' %} </div>
+    <div> {% content_for 'blocks' %}</div>
 
     <!-- Included in the Box -->
     <div></div>
@@ -63,25 +63,24 @@
   ],
   "blocks": [
     {
+      "type": "group",
+    },
+    {
       "type": "text",
     },
     {
       
-      "type": "include-in-the-box",
+      "type": "_include-in-the-box",
+    },
+    {
+      "type": "_product-specification",
     }
   ],
   "presets": [
     {
       "name": "Tech Specs",
       "category": "Products",
-      "blocks": [
-        {
-            "type": "text",
-        },
-        {
-            "type": "include-in-the-box",
-        }
-      ]
+      
     }
   ]
 }

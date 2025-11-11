@@ -1,0 +1,101 @@
+{% assign include_in_the_box = product.metafields.custom.included_in_the_box.value %}
+
+<style>
+  .main-container{
+    width: clamp(340px, 30vw, 480px);
+  }
+  .icon-box{
+    width:14rem;
+    margin: 0 auto;
+  }
+    .include-in-the-box {
+      width: clamp(340px, 30vw, 480px);
+      padding: 3rem;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      border-radius: clamp(0.6rem, 1.05vw, 1.25rem);
+    }
+    .include-in-the-box-title{
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .include-in-the-box-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #fff;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .include-in-the-box-icon img {
+      width: 48px;
+      height: 48px;
+    }
+    .include-in-the-box-heading{
+      text-align: center;
+  }
+    .include-in-the-box-item{
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+  }
+  .include-in-the-box-container{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+  }
+
+  @media screen and (max-width: 950px) {
+      .include-in-the-box, .main-container {
+          width: 100%;
+      }
+      .include-in-the-box-container{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-around;
+      flex-wrap: wrap;
+  }
+</style>
+<div class="main-container">
+    <svg class="icon-box" viewBox="0 0 234 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 20C0 8.95431 8.95431 0 20 0H214C225.046 0 234 8.9543 234 20V74H0V20Z" fill="currentColor"></path>
+    <rect x="58" y="32" width="118" height="19" rx="9.5" class="fill" fill="#fff" ></rect>
+    <circle cx="117.5" cy="32.5" r="11.5" class="fill" fill="#fff"></circle>
+  </svg>
+<div class="include-in-the-box">
+
+  <h3 class="include-in-the-box-title">Include in the box</h3>
+  <div class="include-in-the-box-container">
+    {% for item in include_in_the_box %}
+      <div class="include-in-the-box-item">
+        <div class="include-in-the-box-icon">
+          <img src="{{ item.icon | img_url: '48x' }}" alt="{{ item.heading }}-img" width="48px" height="48px">
+        </div>
+        <div class="include-in-the-box-heading">{{ item.heading }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Include in the box",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Include in the box",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}
