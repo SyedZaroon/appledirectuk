@@ -1,10 +1,48 @@
+{% assign include_in_the_box = product.metafields.custom.included_in_the_box.value %}
+{% assign product_specification = product.metafields.custom.product_specification.value %}
+
+{% if include_in_the_box != blank or product_specification != blank %}
+
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div class="  section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}" style="padding-block-start: {{ section.settings.padding-block-start }}px; padding-block-end: {{ section.settings.padding-block-end }}px;">
-    <div> {% content_for 'blocks' %}</div>
 
-    <!-- Included in the Box -->
-    <div></div>
-</div>
+
+
+      <div>
+        {% content_for 'block', type: 'text', id: 'text' %}
+      </div>
+
+    <div class="tech-specs-container">
+      <div>
+        {% content_for 'block', type: '_product-specification', id: 'product-specification' %}
+      </div>
+
+      <div>
+        {% content_for 'block', type: '_include-in-the-box', id: 'include-in-the-box' %}
+      </div>
+
+    </div>
+
+
+
+</div> 
+
+<style>
+  .tech-specs-container{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+  }
+
+  @media screen and (max-width: 965px) {
+    .tech-specs-container{
+      grid-template-columns: repeat(1, 1fr);
+      gap: 2rem;
+    }
+  }
+</style>
+{% endif %}
+
 
 {% schema %}
 {
@@ -63,9 +101,6 @@
   ],
   "blocks": [
     {
-      "type": "group",
-    },
-    {
       "type": "text",
     },
     {
@@ -79,8 +114,7 @@
   "presets": [
     {
       "name": "Tech Specs",
-      "category": "Products",
-      
+      "category": "Products", 
     }
   ]
 }

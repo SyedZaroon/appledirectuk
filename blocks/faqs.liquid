@@ -1,0 +1,95 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+.product-faq-title {
+  display: block;
+  width: 100%;
+}
+  .inner-text {
+    margin-bottom: 2rem;
+  }
+
+  .product-faq-title {
+    padding: 2rem 0;
+    font-size: clamp(1rem, 0.873rem + 0.3175vw, 1.25rem);
+    position: relative;
+  }
+  .product-faq-title::after {
+    content: '+';
+    position: absolute;
+    right: 5px;
+    top: 30%;
+    font-size: 26px;
+    transition: all 0.8s ease;
+  }
+  .spec-heading-text {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .product-faq {
+    border-bottom: 1px solid white;
+  }
+  .product-faq[open] .product-faq-title::after {
+    rotate: -45deg;
+  }
+  .product-faq-content {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  summary:hover {
+    color: white;
+  }
+
+</style>
+
+{% if product.metafields.custom.product_faq %}
+  {% assign faq_metaobject = product.metafields.custom.product_faq.value %}
+  {% assign faq = faq_metaobject.faqs.value %}
+
+  <div class="product-faq-wrapper">
+      {%- for item in faq -%}
+        <details class="product-faq">
+        <summary class="product-faq-title">{{ item.question}}</summary>
+        <div class="product-faq-content">
+            <div>
+              <p class="sub-heading">{{ item.answer }}</p>
+            </div>
+        </div>
+      </details>
+      {%- endfor -%}
+  </div>
+{% endif %}
+
+<script>
+  const allDetails = document.querySelectorAll('.product-faq');
+
+  allDetails.forEach((details) => {
+    details.addEventListener('toggle', () => {
+      if (details.open) {
+        // Close all others
+        allDetails.forEach((other) => {
+          if (other !== details && other.open) {
+            other.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Faqs",
+  "presets": [
+    {
+      "name": "Faqs",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

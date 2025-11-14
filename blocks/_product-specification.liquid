@@ -1,24 +1,17 @@
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
   .inner-text {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     column-gap: 63px;
     margin-bottom: 2rem;
+  }
 
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    transition: all 1.4s ease;
-  }
-  .product-specification[open] .inner-text {
-    opacity: 1;
-    max-height: 1000px;
-  }
-  * {
-    margin: 0;
-    padding: 0;
-  }
   .product-specs-main-title {
     padding: 2rem 0;
     font-size: clamp(1rem, 0.873rem + 0.3175vw, 1.25rem);
@@ -28,10 +21,9 @@
     content: '+';
     position: absolute;
     right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 30%;
     font-size: 26px;
-    transition: all 1.4s ease;
+    transition: all 0.8s ease;
   }
   .spec-heading-text {
     margin-bottom: 1rem;
@@ -39,52 +31,53 @@
     font-weight: 600;
   }
 
-  .product-specification-section {
-    width: 50%;
-  }
   .product-specification {
     border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   }
   summary:hover {
     color: black;
   }
+
+  .product-specification[open] .product-specs-main-title::after {
+    rotate: -45deg;
+  }
   .sub-heading {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 8px;
   }
-  .product-specification[open] .product-specs-main-title::after {
-    content: '-';
-  }
+
 </style>
 
 {%- assign specs = product.metafields.custom.product_specification.value -%}
 
-<div class="product-specification-section">
-  {%- for main_heading in specs -%}
-    <details class="product-specification">
-      <summary class="product-specs-main-title">{{ main_heading[0] }}</summary>
+{%- if specs != blank -%}
+  <div class="product-specification-section">
+    {%- for main_heading in specs -%}
+      <details class="product-specification">
+        <summary class="product-specs-main-title">{{ main_heading[0] }}</summary>
 
-      {%- assign sub_specs = main_heading[1] %}
+        {%- assign sub_specs = main_heading[1] %}
 
-      <div class="inner-text">
-        {%- for sub_heading in sub_specs %}
-          <div>
-            <p class="sub-heading">{{ sub_heading[0] }}</p>
+        <div class="inner-text">
+          {%- for sub_heading in sub_specs %}
+            <div>
+              <p class="sub-heading">{{ sub_heading[0] }}</p>
 
-            {%- assign sub_desc = sub_heading[1] %}
+              {%- assign sub_desc = sub_heading[1] %}
 
-            <ul>
-              {%- for desc in sub_desc %}
-                <li>{{ desc }}</li>
-              {%- endfor %}
-            </ul>
-          </div>
-        {%- endfor %}
-      </div>
-    </details>
-  {%- endfor -%}
-</div>
+              <ul>
+                {%- for desc in sub_desc %}
+                  <li>{{ desc }}</li>
+                {%- endfor %}
+              </ul>
+            </div>
+          {%- endfor %}
+        </div>
+      </details>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
 
 <script>
   const allDetails = document.querySelectorAll('.product-specification');
